@@ -5,85 +5,81 @@ import Form from "react-bootstrap/Form";
 
 import "./App.css";
 import { Col, Container, Image, Row } from "react-bootstrap";
-import axios from "axios";
+import Chart from "./assets/components/Chart";
 function App() {
   const [selected, setSelected] = useState("");
-  const [fromValue,setFromValue] = useState("");
+  const [fromValue, setFromValue] = useState("");
 
   const [selected1, setSelected1] = useState("");
-  const [toValue,setToValue] = useState("");
+  const [toValue, setToValue] = useState("");
 
   const [value, setValue] = useState(10);
   const [result, setResult] = useState();
-  
 
-  const change1 = (e)=>{
-    if(e === "US"){
-      setFromValue("usd")
-      setSelected("US")
-    }else if(e === "GB"){
-      setFromValue("gbp")
-      setSelected("GB")
-
-    }else if(e === "JP"){
-      setFromValue("JPY")
-      setSelected("JP")
-
-    }else if(e=== "SA"){
-      setFromValue("sar")
-      setSelected("SA")
-
-    }else if(e=== "EG"){
-      setFromValue("egp")
-      setSelected("EG")
-
+  const change1 = (e) => {
+    if (e === "US") {
+      setFromValue("usd");
+      setSelected("US");
+    } else if (e === "GB") {
+      setFromValue("gbp");
+      setSelected("GB");
+    } else if (e === "JP") {
+      setFromValue("JPY");
+      setSelected("JP");
+    } else if (e === "SA") {
+      setFromValue("sar");
+      setSelected("SA");
+    } else if (e === "EG") {
+      setFromValue("egp");
+      setSelected("EG");
     }
-  }
+  };
 
-  const change2 = (e)=>{
-    if(e === "US"){
-      setToValue("usd")
-      setSelected1("US")
-    }else if(e === "GB"){
-      setToValue("gbp")
-      setSelected1("GB")
-    }else if(e === "JP"){
-      setToValue("JPY")
-      setSelected1("JP")
-    }else if(e=== "SA"){
-      setToValue("sar")
-      setSelected1("SA")
-    }else if(e=== "EG"){
-      setToValue("egp")
-      setSelected1("EG")
+  const change2 = (e) => {
+    if (e === "US") {
+      setToValue("usd");
+      setSelected1("US");
+    } else if (e === "GB") {
+      setToValue("gbp");
+      setSelected1("GB");
+    } else if (e === "JP") {
+      setToValue("JPY");
+      setSelected1("JP");
+    } else if (e === "SA") {
+      setToValue("sar");
+      setSelected1("SA");
+    } else if (e === "EG") {
+      setToValue("egp");
+      setSelected1("EG");
     }
-  }
+  };
 
   const converter = () => {
     var myHeaders = new Headers();
-myHeaders.append("apikey", "idTf5aNO1ONgML4LE1Nz8gdT03mFDUEb");
+    myHeaders.append("apikey", "idTf5aNO1ONgML4LE1Nz8gdT03mFDUEb");
 
-var requestOptions = {
-  method: 'GET',
-  redirect: 'follow',
-  headers: myHeaders
-};
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+      headers: myHeaders,
+    };
 
-fetch(`https://api.apilayer.com/fixer/convert?to=${toValue}&from=${fromValue}&amount=${value}`, requestOptions)
-  .then(response => response.text())
-  .then(result => 
-{
- var obj = JSON.parse(result)
-  setResult(obj.result)
-}
-    
+    fetch(
+      `https://api.apilayer.com/fixer/convert?to=${toValue}&from=${fromValue}&amount=${value}`,
+      requestOptions
     )
-  .catch(error => console.log('error', error));
-
+      .then((response) => response.text())
+      .then((result) => {
+        var obj = JSON.parse(result);
+        setResult(obj.result);
+      })
+      .catch((error) => console.log("error", error));
   };
   useEffect(() => {
     converter();
   }, [value]);
+
+
   return (
     <Container>
       <Row style={{ marginLeft: "4rem" }}>
@@ -98,7 +94,7 @@ fetch(`https://api.apilayer.com/fixer/convert?to=${toValue}&from=${fromValue}&am
                 SA: "Saudi Arabia",
                 EG: "Egypt",
               }}
-              placeholder="Select Language"
+              placeholder="From"
               selected={selected}
               onSelect={(code) => change1(code)}
             />
@@ -113,7 +109,7 @@ fetch(`https://api.apilayer.com/fixer/convert?to=${toValue}&from=${fromValue}&am
                 SA: "Saudi Arabia",
                 EG: "Egypt",
               }}
-              placeholder="Select Language"
+              placeholder="To"
               selected={selected1}
               onSelect={(code) => change2(code)}
             />
@@ -152,8 +148,12 @@ fetch(`https://api.apilayer.com/fixer/convert?to=${toValue}&from=${fromValue}&am
         </Col>
       </Row>
       <Row style={{ marginTop: "4rem", marginLeft: "4rem" }}>
-        <Col>1 of 3</Col>
-        <Col>2 of 3</Col>
+        <Col>
+        <Chart country={selected} />
+        </Col>
+        <Col>
+          <Chart country={selected1} />
+        </Col>
       </Row>
     </Container>
   );
