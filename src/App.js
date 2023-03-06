@@ -147,11 +147,12 @@ function App() {
           </div>
         </Col>
       </Row>
-      <Row style={{ marginTop: "4rem", marginLeft: "4rem" }}>
-        <Col>
+      <Row style={{ marginTop: "4rem"}}>
+        <Col md={6} sm={10} >
         <Chart country={selected} />
+
         </Col>
-        <Col>
+        <Col md={6} sm={10} >
           <Chart country={selected1} />
         </Col>
       </Row>

@@ -14,11 +14,14 @@ const Chart = (country) => {
     },[country])
 
     const [data,setData] = useState([])
+    const [key,setKey] = useState("")
+
 
     const renderData = ()=>{
         console.log(country)
         if(country.country === "US"){
             setData(usdData)
+            setKey("USA")
         }else if(country.country === "GB"){
             setData(Britindata)
         }else if(country.country === "JP"){
@@ -33,153 +36,153 @@ const Chart = (country) => {
     const usdData = [
         {
           name: "2010",
-          Usd: 1000,
+          currency: 1000,
         },
         {
           name: "2011",
-          Usd: 2500,
+          currency: 2500,
         },
         {
           name: "2012",
-          Usd: 3100,
+          currency: 3100,
         },
         {
           name: "2013",
-          Usd: 4280,
+          currency: 4280,
         },
         {
           name: "2014",
-          Usd: 5090,
+          currency: 5090,
         },
         {
           name: "2015",
-          Usd: 6390,
+          currency: 6390,
         },
         {
           name: "2016",
-          Usd: 7490,
+          currency: 7490,
         },
       ];
     
       const Britindata = [
         {
           name: "2010",
-          Usd: 2000,
+          currency: 2000,
         },
         {
           name: "2011",
-          Usd: 3500,
+          currency: 3500,
         },
         {
           name: "2012",
-          Usd: 2100,
+          currency: 2100,
         },
         {
           name: "2013",
-          Usd: 4280,
+          currency: 4280,
         },
         {
           name: "2014",
-          Usd: 2090,
+          currency: 2090,
         },
         {
           name: "2015",
-          Usd: 6390,
+          currency: 6390,
         },
         {
           name: "2016",
-          Usd: 9490,
+          currency: 9490,
         },
       ];
     
       const Jpydata = [
         {
           name: "2010",
-          Usd: 200,
+          currency: 200,
         },
         {
           name: "2011",
-          Usd: 300,
+          currency: 300,
         },
         {
           name: "2012",
-          Usd: 210,
+          currency: 210,
         },
         {
           name: "2013",
-          Usd: 420,
+          currency: 420,
         },
         {
           name: "2014",
-          Usd: 290,
+          currency: 290,
         },
         {
           name: "2015",
-          Usd: 639,
+          currency: 639,
         },
         {
           name: "2016",
-          Usd: 940,
+          currency: 940,
         },
       ];
       const Egydata = [
         {
           name: "2010",
-          Usd: 21,
+          currency: 21,
         },
         {
           name: "2011",
-          Usd: 22,
+          currency: 22,
         },
         {
           name: "2012",
-          Usd: 20,
+          currency: 20,
         },
         {
           name: "2013",
-          Usd: 42,
+          currency: 42,
         },
         {
           name: "2014",
-          Usd: 29,
+          currency: 29,
         },
         {
           name: "2015",
-          Usd: 69,
+          currency: 69,
         },
         {
           name: "2016",
-          Usd: 94,
+          currency: 94,
         },
       ];
       const Sardata = [
         {
           name: "2010",
-          Usd: 231,
+          currency: 231,
         },
         {
           name: "2011",
-          Usd: 421,
+          currency: 421,
         },
         {
           name: "2012",
-          Usd: 205,
+          currency: 205,
         },
         {
           name: "2013",
-          Usd: 562,
+          currency: 562,
         },
         {
           name: "2014",
-          Usd: 292,
+          currency: 292,
         },
         {
           name: "2015",
-          Usd: 691,
+          currency: 691,
         },
         {
           name: "2016",
-          Usd: 949,
+          currency: 949,
         },
       ];
 
@@ -208,7 +211,7 @@ const Chart = (country) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="Usd" stroke="#82ca9d" />
+    <Line type="monotone" dataKey="currency" stroke="#82ca9d" />
   </LineChart>
   )
 }
