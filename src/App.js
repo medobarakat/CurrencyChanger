@@ -2,20 +2,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ReactFlagsSelect from "react-flags-select";
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-
+import Loader from "react-loading-indicators";
 import "./App.css";
 import { Col, Container, Image, Row } from "react-bootstrap";
 import Chart from "./assets/components/Chart";
 function App() {
+  // declaring variables
   const [selected, setSelected] = useState("");
   const [fromValue, setFromValue] = useState("");
-
   const [selected1, setSelected1] = useState("");
   const [toValue, setToValue] = useState("");
-
-  const [value, setValue] = useState(10);
+  const [value, setValue] = useState(0);
   const [result, setResult] = useState();
+  const [loading, setLoading] = useState(false);
 
+  // Changing The From Value
   const change1 = (e) => {
     if (e === "US") {
       setFromValue("usd");
@@ -34,6 +35,8 @@ function App() {
       setSelected("EG");
     }
   };
+
+  // Changing The To Value
 
   const change2 = (e) => {
     if (e === "US") {
@@ -54,7 +57,10 @@ function App() {
     }
   };
 
+  // the Main Converter function
+
   const converter = () => {
+    setLoading(true);
     var myHeaders = new Headers();
     myHeaders.append("apikey", "idTf5aNO1ONgML4LE1Nz8gdT03mFDUEb");
 
@@ -72,17 +78,24 @@ function App() {
       .then((result) => {
         var obj = JSON.parse(result);
         setResult(obj.result);
+        setLoading(false);
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        setLoading(false);
+      });
   };
+
+  // iniating the converter and change it depend on the value changes
+
   useEffect(() => {
     converter();
   }, [value]);
 
-
   return (
     <Container>
       <Row style={{ marginLeft: "4rem" }}>
+        <h3 className="mainTitle">Currency Changer</h3>
         <Col md={5} sm={5} style={{ display: "flex", marginTop: "5rem" }}>
           <div className="singlepick">
             <ReactFlagsSelect
@@ -94,7 +107,7 @@ function App() {
                 SA: "Saudi Arabia",
                 EG: "Egypt",
               }}
-              placeholder="From"
+              placeholder="From Currency"
               selected={selected}
               onSelect={(code) => change1(code)}
             />
@@ -109,7 +122,7 @@ function App() {
                 SA: "Saudi Arabia",
                 EG: "Egypt",
               }}
-              placeholder="To"
+              placeholder="To Currency"
               selected={selected1}
               onSelect={(code) => change2(code)}
             />
@@ -135,24 +148,29 @@ function App() {
           >
             =
           </div>
-          <div
-            style={{
-              marginTop: ".5rem",
-              fontSize: "18px",
-              marginLeft: "1rem",
-              marginRight: "1rem",
-            }}
-          >
-            {result}
-          </div>
+          {loading == true ? (
+            <div>
+              <Loader size="small" />
+            </div>
+          ) : (
+            <div
+              style={{
+                marginTop: ".5rem",
+                fontSize: "18px",
+                marginLeft: "1rem",
+                marginRight: "1rem",
+              }}
+            >
+              {result}
+            </div>
+          )}
         </Col>
       </Row>
-      <Row style={{ marginTop: "4rem"}}>
-        <Col md={6} sm={10} >
-        <Chart country={selected} />
-
+      <Row style={{ marginTop: "4rem" }}>
+        <Col md={6} sm={10}>
+          <Chart country={selected} />
         </Col>
-        <Col md={6} sm={10} >
+        <Col md={6} sm={10}>
           <Chart country={selected1} />
         </Col>
       </Row>

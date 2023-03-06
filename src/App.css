@@ -1,10 +1,14 @@
-.singlepick{
+.mainTitle {
+  text-align: center;
+  margin-top: 3rem;
+}
+.singlepick {
   margin-right: 1rem;
-  height:2.5rem !important
-
+  height: 2.5rem !important;
+  width: 100%;
 }
 
-.numpick{
-  height:2.5rem
+.numpick {
+  height: 2.5rem;
 }
 
